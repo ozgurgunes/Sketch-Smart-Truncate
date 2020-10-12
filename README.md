@@ -1,4 +1,4 @@
-<img src="https://github.com/ozgurgunes/Sketch-Smart-Truncate/blob/master/assets/icon.png?raw=true" alt="Sketch Smart Truncate" width="128" align="right" />
+<img src="https://github.com/ozgurgunes/Sketch-Smart-Truncate/blob/master/assets/icon.png?raw=true" alt="Sketch Smart Truncate" width="192" align="right" />
 
 # Smart Truncate  [![Download Latest][image]][link]
 
@@ -13,7 +13,7 @@ Smart Truncate plugin for Sketch, truncates text in selected layers, symbol over
 
 #### Alternatively
 
-Search for Symbol States in [Sketchrunner](http://sketchrunner.com/) or [Sketchpacks](https://sketchpacks.com/).
+Search for Smart Truncate in [Sketchrunner](http://sketchrunner.com/) or [Sketchpacks](https://sketchpacks.com/).
 
 ## Selection
 
