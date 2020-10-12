@@ -1,0 +1,47 @@
+{
+  "name": "smart-truncate",
+  "description": "Truncates text in selected layers, symbol overrides or even all overrides of all instances of a symbol to given length.",
+  "author": "Ozgur Gunes",
+  "authorEmail": "o.gunes@gmail.com",
+  "homepage": "https://github.com/ozgurgunes/Sketch-Smart-Truncate",
+  "license": "MIT",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozgurgunes/Sketch-Smart-Truncate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ozgurgunes/Sketch-Smart-Truncate/issues"
+  },
+  "engines": {
+    "sketch": ">=52"
+  },
+  "skpm": {
+    "name": "Smart Truncate",
+    "manifest": "src/manifest.json",
+    "main": "smart-truncate.sketchplugin",
+    "assets": [
+      "assets/**/*"
+    ]
+  },
+  "scripts": {
+    "build": "skpm-build",
+    "watch": "skpm-build --watch",
+    "start": "skpm-build --watch --run",
+    "postinstall": "npm run build && skpm-link"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-syntax-async-generators": "^7.8.4",
+    "@babel/preset-env": "^7.11.0",
+    "@skpm/babel-preset": "^0.2.2",
+    "@skpm/builder": "^0.7.5",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-config-sketch": "^0.2.4",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2"
+  }
+}

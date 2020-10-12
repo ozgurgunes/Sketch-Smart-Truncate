@@ -1,0 +1,91 @@
+{
+  "name": "Smart Truncate",
+  "description": "Truncates text in selected layers, symbol overrides or even all overrides of all instances of a symbol to given length.",
+  "identifier": "com.gunesozgur.sketch.smart-truncate",
+  "author": "Ozgur Gunes",
+  "authorEmail": "o.gunes@gmail.com",
+  "$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "appcast": "https://raw.githubusercontent.com/ozgurgunes/Sketch-Smart-Truncate/master/.appcast.xml",
+  "homepage": "https://github.com/ozgurgunes/Sketch-Smart-Truncate",
+  "icon": "icon.png",
+  "commands": [
+    {
+      "name": "Truncate Last Characters",
+      "identifier": "smart-truncate.truncate-last-characters",
+      "script": "./command.js",
+      "handler": "truncateLastCharacters"
+    },
+    {
+      "name": "Truncate Last Words",
+      "identifier": "smart-truncate.truncate-last-words",
+      "script": "./command.js",
+      "handler": "truncateLastWords"
+    },
+    {
+      "name": "TLC Without Cutting Words",
+      "identifier": "smart-truncate.truncate-last-spaces",
+      "script": "./command.js",
+      "handler": "truncateLastSpaces"
+    },
+    {
+      "name": "Truncate First Characters",
+      "identifier": "smart-truncate.truncate-first-characters",
+      "script": "./command.js",
+      "handler": "truncateFirstCharacters"
+    },
+    {
+      "name": "Truncate First Words",
+      "identifier": "smart-truncate.truncate-first-words",
+      "script": "./command.js",
+      "handler": "truncateFirstWords"
+    },
+    {
+      "name": "TFC Without Cutting Words",
+      "identifier": "smart-truncate.truncate-first-spaces",
+      "script": "./command.js",
+      "handler": "truncateFirstSpaces"
+    },
+    {
+      "name": "Truncate Middle Characters",
+      "identifier": "smart-truncate.truncate-middle-characters",
+      "script": "./command.js",
+      "handler": "truncateMiddleCharacters"
+    },
+    {
+      "name": "Truncate Middle Words",
+      "identifier": "smart-truncate.truncate-middle-words",
+      "script": "./command.js",
+      "handler": "truncateMiddleWords"
+    },
+    {
+      "name": "TMC Without Cutting Words",
+      "identifier": "smart-truncate.truncate-middle-spaces",
+      "script": "./command.js",
+      "handler": "truncateMiddleSpaces"
+    },
+    {
+      "name": "Settings",
+      "identifier": "smart-truncate.settings",
+      "script": "./command.js",
+      "handler": "pluginSettings"
+    }
+  ],
+  "menu": {
+    "title": "Smart Truncate",
+    "items": [
+      "smart-truncate.truncate-last-characters",
+      "smart-truncate.truncate-last-words",
+      "smart-truncate.truncate-last-spaces",
+      "-",
+      "smart-truncate.truncate-first-characters",
+      "smart-truncate.truncate-first-words",
+      "smart-truncate.truncate-first-spaces",
+      "-",
+      "smart-truncate.truncate-middle-characters",
+      "smart-truncate.truncate-middle-words",
+      "smart-truncate.truncate-middle-spaces",
+      "-",
+      "smart-truncate.settings"
+    ]
+  }
+}

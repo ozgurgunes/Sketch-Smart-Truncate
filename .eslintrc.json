@@ -1,0 +1,20 @@
+{
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "prettier", "sketch"],
+  "plugins": ["prettier"],
+  "globals": {
+    "context": "readonly",
+    "NSSwitchButton": "readonly",
+    "NSURLSession": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "off"
+  }
+}
