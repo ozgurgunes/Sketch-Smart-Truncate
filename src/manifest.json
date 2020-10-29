@@ -1,6 +1,6 @@
 {
   "name": "Smart Truncate",
-  "description": "Truncates text in selected layers, symbol overrides or even all overrides of all instances of a symbol to given length.",
+  "description": "Truncates text in selected layers, symbol overrides or even all overrides of all instances of selected symbol master to given length.",
   "identifier": "com.gunesozgur.sketch.smart-truncate",
   "author": "Ozgur Gunes",
   "authorEmail": "o.gunes@gmail.com",
@@ -11,60 +11,70 @@
   "commands": [
     {
       "name": "Truncate Last Characters",
+      "description": "Keeps starting part of text in given length including suffix.",
       "identifier": "smart-truncate.truncate-last-characters",
       "script": "./command.js",
       "handler": "truncateLastCharacters"
     },
     {
       "name": "Truncate Last Words",
+      "description": "Keeps starting words of text in given length.",
       "identifier": "smart-truncate.truncate-last-words",
       "script": "./command.js",
       "handler": "truncateLastWords"
     },
     {
-      "name": "TLC Without Cutting Words",
+      "name": "TLC w/o Cutting Words",
+      "description": "Keeps starting words in given character length at maximum.",
       "identifier": "smart-truncate.truncate-last-spaces",
       "script": "./command.js",
       "handler": "truncateLastSpaces"
     },
     {
       "name": "Truncate First Characters",
+      "description": "Keeps ending part of text in given length including suffix.",
       "identifier": "smart-truncate.truncate-first-characters",
       "script": "./command.js",
       "handler": "truncateFirstCharacters"
     },
     {
       "name": "Truncate First Words",
+      "description": "Keeps ending words of text in given length.",
       "identifier": "smart-truncate.truncate-first-words",
       "script": "./command.js",
       "handler": "truncateFirstWords"
     },
     {
-      "name": "TFC Without Cutting Words",
+      "name": "TFC w/o Cutting Words",
+      "description": "Keeps ending words in given character length at maximum.",
       "identifier": "smart-truncate.truncate-first-spaces",
       "script": "./command.js",
       "handler": "truncateFirstSpaces"
     },
     {
       "name": "Truncate Middle Characters",
+      "description": "Keeps starting and ending parts of text in given length including suffix.",
       "identifier": "smart-truncate.truncate-middle-characters",
       "script": "./command.js",
       "handler": "truncateMiddleCharacters"
     },
     {
       "name": "Truncate Middle Words",
+      "description": "Keeps starting and ending words of text in given length. ",
       "identifier": "smart-truncate.truncate-middle-words",
       "script": "./command.js",
       "handler": "truncateMiddleWords"
     },
     {
-      "name": "TMC Without Cutting Words",
+      "name": "TMC w/o Cutting Words",
+      "description": "Keeps starting and ending words in given character length at maximum.",
       "identifier": "smart-truncate.truncate-middle-spaces",
       "script": "./command.js",
       "handler": "truncateMiddleSpaces"
     },
     {
       "name": "Settings",
+      "description": "Lets you define a custom suffix to place in truncated part.",
       "identifier": "smart-truncate.settings",
       "script": "./command.js",
       "handler": "pluginSettings"

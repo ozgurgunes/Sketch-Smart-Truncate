@@ -5,7 +5,7 @@
 [image]: https://img.shields.io/github/release/ozgurgunes/Sketch-Smart-Truncate.svg?label=Download
 [link]: https://github.com/ozgurgunes/Sketch-Smart-Truncate/releases/latest/download/smart-truncate.sketchplugin.zip
 
-Smart Truncate plugin for Sketch, truncates text in selected layers, symbol overrides or even all overrides of all instances of a symbol to given length.
+Smart Truncate plugin for Sketch, truncates text in selected layers, symbol overrides or even all overrides of all instances of selected symbol master to given length.
 
 ## Installation
 

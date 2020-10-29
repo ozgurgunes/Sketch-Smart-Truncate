@@ -1,27 +1,37 @@
 import sketch from 'sketch/dom'
-import settings from 'sketch/settings'
-import analytics from './analytics'
-import * as UI from './ui.js'
+import { errorMessage, alert, textField } from '@ozgurgunes/sketch-plugin-ui'
+import analytics from '@ozgurgunes/sketch-plugin-analytics'
 
-function getSuffix() {
-  return settings.settingForKey('suffix') || '…'
+const truncationTypes = {
+  characters: {
+    dialogMessage: 'How many characters do you want to be displayed?',
+    presetLength: 48
+  },
+  words: {
+    dialogMessage: 'How many words do you want to be displayed?',
+    presetLength: 8
+  },
+  spaces: {
+    dialogMessage:
+      'How many characters do you want to be displayed at maximum?',
+    presetLength: 48
+  }
 }
 
-export const suffix = getSuffix()
-
-export function getSelection(selected) {
+export function getSelection() {
+  let selected = sketch.getSelectedDocument().selectedLayers
   let overrides = getSelectedOverrides()
   switch (true) {
     case !selected.layers[0] && !overrides.length:
       analytics('No Selection')
-      throw UI.message(
-        'Please select a symbol master, symbols or text layers.',
-        'error'
+      return errorMessage(
+        'Please select a symbol master, symbols or text layers.'
       )
     case overrides.length > 0:
       return {
         type: sketch.Types.Override,
-        layers: overrides
+        layers: selected.layers,
+        overrides: overrides
       }
     case isSymbolMaster(selected):
       return {
@@ -36,25 +46,25 @@ export function getSelection(selected) {
     case !hasTextLayer(selected):
       if (isAllSymbol(selected)) {
         analytics('Not Same Symbol')
-        throw UI.dialog('Selected symbols master must be same.')
+        return alert('Selected symbols master must be same.').runModal()
       }
       analytics('No Text Layers')
-      throw UI.message(
-        'Please select a symbol master, symbols or text layers.',
-        'error'
+      return errorMessage(
+        'Please select a symbol master, symbols or text layers.'
       )
     default:
       return {
         type: sketch.Types.Text,
-        layers: selected.layers.filter(
-          layer => layer.type == sketch.Types.Text
-        )
+        layers: selected.layers.filter(layer => layer.type == sketch.Types.Text)
       }
   }
 }
 
 function getSelectedOverrides() {
-  return context.document.documentData().selectedOverrides()
+  return sketch
+    .getSelectedDocument()
+    .sketchObject.documentData()
+    .selectedOverrides()
 }
 
 function hasTextLayer(selected) {
@@ -63,23 +73,19 @@ function hasTextLayer(selected) {
 
 function isSymbolMaster(selected) {
   return (
-    selected.length == 1 &&
-    selected.layers[0].type == sketch.Types.SymbolMaster
+    selected.length == 1 && selected.layers[0].type == sketch.Types.SymbolMaster
   )
 }
 
 function isAllSymbol(selected) {
-  return selected.layers.every(
-    item => item.type == sketch.Types.SymbolInstance
-  )
+  return selected.layers.every(item => item.type == sketch.Types.SymbolInstance)
 }
 
 function isAllSameSymbol(selected) {
-  return (
-    selected.layers[0].type == sketch.Types.SymbolInstance &&
-    selected.layers.every(
-      item => item.master.id == selected.layers[0].master.id
-    )
+  return selected.layers.every(
+    item =>
+      item.type == sketch.Types.SymbolInstance &&
+      item.master.id == selected.layers[0].master.id
   )
 }
 
@@ -100,4 +106,36 @@ export function getOptionList(symbol, overrides) {
     }
     return path
   })
+}
+
+export function getInput(commandFunction) {
+  let truncationType
+  switch (true) {
+    case commandFunction.name.endsWith('CharactersFunction'):
+      truncationType = 'characters'
+      break
+    case commandFunction.name.endsWith('WordsFunction'):
+      truncationType = 'words'
+      break
+    case commandFunction.name.endsWith('SpacesFunction'):
+      truncationType = 'spaces'
+      break
+  }
+  let buttons = ['Truncate', 'Cancel']
+  let message = truncationTypes[truncationType].dialogMessage
+  let accessory = textField(truncationTypes[truncationType].presetLength)
+  let response = alert(message, buttons, accessory).runModal()
+  let result = accessory.stringValue()
+  if (response === 1000) {
+    switch (true) {
+      case !result.length() > 0:
+        // User clicked "OK" without entering a value.
+        // Return dialog until user enters anyting or clicks "Cancel".
+        return getInput(commandFunction)
+      case !Number(result) || result < 1:
+        return alert('Please enter a number 1 or more.').runModal()
+      default:
+        return result
+    }
+  }
 }
