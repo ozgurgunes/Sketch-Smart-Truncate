@@ -9,7 +9,23 @@ import {
   optionList
 } from '@ozgurgunes/sketch-plugin-ui'
 import analytics from '@ozgurgunes/sketch-plugin-analytics'
-import { getSelection, getOptionList, getInput } from './utils'
+import { getSelection, getOptionList } from './utils'
+
+const truncationTypes = {
+  characters: {
+    dialogMessage: 'How many characters do you want to be displayed?',
+    presetLength: 48
+  },
+  words: {
+    dialogMessage: 'How many words do you want to be displayed?',
+    presetLength: 8
+  },
+  spaces: {
+    dialogMessage:
+      'How many characters do you want to be displayed at maximum?',
+    presetLength: 48
+  }
+}
 
 const suffix = settings.settingForKey('suffix') || '…'
 
@@ -91,6 +107,50 @@ function truncateCommand(commandFunction) {
         selection.overrides,
         commandFunction
       )
+  }
+}
+
+export function getInput(commandFunction) {
+  let truncationType
+  switch (true) {
+    case [
+      truncateLastCharactersFunction,
+      truncateMiddleCharactersFunction,
+      truncateFirstCharactersFunction
+    ].includes(commandFunction):
+      truncationType = 'characters'
+      break
+    case [
+      truncateLastWordsFunction,
+      truncateMiddleWordsFunction,
+      truncateFirstWordsFunction
+    ].includes(commandFunction):
+      truncationType = 'words'
+      break
+    case [
+      truncateLastSpacesFunction,
+      truncateMiddleSpacesFunction,
+      truncateFirstSpacesFunction
+    ].includes(commandFunction):
+      truncationType = 'spaces'
+      break
+  }
+  let buttons = ['Truncate', 'Cancel']
+  let message = truncationTypes[truncationType].dialogMessage
+  let accessory = textField(truncationTypes[truncationType].presetLength)
+  let response = alert(message, buttons, accessory).runModal()
+  let result = accessory.stringValue()
+  if (response === 1000) {
+    switch (true) {
+      case !result.length() > 0:
+        // User clicked "OK" without entering a value.
+        // Return dialog until user enters anyting or clicks "Cancel".
+        return getInput(commandFunction)
+      case !Number(result) || result < 1:
+        return alert('Please enter a number 1 or more.').runModal()
+      default:
+        return result
+    }
   }
 }
 
